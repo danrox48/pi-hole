@@ -17,7 +17,10 @@
 # curl -L install.pi-hole.net | bash
 
 # Install whiptail and iproute which aren't included in OSMC
-installOsmcDependencies | tee $tmpLog
+sudo apt-get update | tee $tmpLog
+sudo apt-get -y upgrade | tee $tmpLog
+sudo apt-get -y install whiptail iproute | tee $tmpLog
+
 ######## VARIABLES #########
 tmpLog=/tmp/pihole-install.log
 instalLogLoc=/etc/pihole/install.log
@@ -226,16 +229,7 @@ sudo service dnsmasq stop || true
 sudo service lighttpd stop || true
 }
 
-installOsmcDependencies(){
-sudo apt-get update
-sudo apt-get -y upgrade
-sudo apt-get -y install whiptail 
-sudo apt-get -y install iproute
-}
-
 installDependencies(){
-sudo apt-get update
-sudo apt-get -y upgrade
 sudo apt-get -y install dnsutils bc toilet
 sudo apt-get -y install dnsmasq
 sudo apt-get -y install lighttpd php5-common php5-cgi php5
