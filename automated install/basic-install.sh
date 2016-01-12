@@ -224,6 +224,13 @@ sudo service dnsmasq stop || true
 sudo service lighttpd stop || true
 }
 
+installOsmcDependencies(){
+sudo apt-get update
+sudo apt-get -y upgrade
+sudo apt-get -y install whiptail 
+sudo apt-get -y install iproute
+}
+
 installDependencies(){
 sudo apt-get update
 sudo apt-get -y upgrade
@@ -259,7 +266,7 @@ installDependencies
 stopServices
 sudo chown www-data:www-data /var/www/html
 sudo chmod 775 /var/www/html
-sudo usermod -a -G www-data pi
+sudo usermod -a -G www-data osmc
 sudo lighty-enable-mod fastcgi fastcgi-php
 installScripts
 installConfigs
@@ -292,6 +299,9 @@ chooseInterface
 
 # Let the user decide if they want to block ads over IPv4 and/or IPv6
 use4andor6
+
+# Install whiptail and iproute which aren't included in OSMC
+installOsmcDependencies | tee $tmpLog
 
 # Decide is IPv4 will be used
 if [[ "$useIPv4" = true ]];then
