@@ -16,6 +16,8 @@
 #
 # curl -L install.pi-hole.net | bash
 
+# Install whiptail and iproute which aren't included in OSMC
+installOsmcDependencies | tee $tmpLog
 ######## VARIABLES #########
 tmpLog=/tmp/pihole-install.log
 instalLogLoc=/etc/pihole/install.log
@@ -300,8 +302,7 @@ chooseInterface
 # Let the user decide if they want to block ads over IPv4 and/or IPv6
 use4andor6
 
-# Install whiptail and iproute which aren't included in OSMC
-installOsmcDependencies | tee $tmpLog
+
 
 # Decide is IPv4 will be used
 if [[ "$useIPv4" = true ]];then
